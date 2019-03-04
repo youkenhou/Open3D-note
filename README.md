@@ -123,3 +123,13 @@ draw_geometries([pcd])
 
 生成的rgb图像保存在```image/```中，深度图保存在```depth/```中。
 
+## 创建Open3D格式的点云
+假设有一个`N*3`的XYZ数组`points`，和一个`N*3`的RGB数组`colors`，可以用以下代码创建一个Open3D官方格式的点云pcd。
+```python
+pcd = open3d.PointCloud()
+pcd.points = open3d.Vector3dVector(points)
+pcd.colors = open3d.Vector3dVector(colors)
+#可视化
+open3d.draw_geometries([pcd])
+```
+使用过程中发现对于红绿蓝三种颜色的RGB值，`draw_geometries`可以直接显示出来，但是其他颜色无法显示都是白色，必须将颜色的RGB值除以255之后才可以正常显示。
